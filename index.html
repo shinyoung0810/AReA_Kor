@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AReA (미학적 민감성 테스트) </title>
+<title>미학적 민감성 테스트(AReA) </title>
 <style>
 body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:0;background:#f6f7fb;color:#0f172a;padding:20px;}
 h1{font-size:20px;margin-bottom:20px;}
@@ -17,7 +17,7 @@ button{background:#334155;color:white;border:0;padding:8px 10px;border-radius:8p
 </head>
 <body>
 
-<h1>AReA (미학적 민감성 테스트)</h1>
+<h1>미학적 민감성 테스트(AReA)</h1>
 
 <form id="surveyForm"></form>
 <button id="submitSurvey" type="button">제출 및 점수보기</button>
@@ -93,16 +93,22 @@ function computeScores(resp){
 submitSurvey.addEventListener('click', ()=>{
   const formData = new FormData(surveyForm);
   const responses = [];
+  let firstUnanswered = null;
+
   for(let i=0;i<items.length;i++){
     const val = formData.get('q'+i);
-    if(!val){alert('모든 항목에 답해주세요.'); return;}
+    if(!val){
+      if(!firstUnanswered) firstUnanswered = document.getElementsByName('q'+i)[0].closest('div');
+      continue;
+    }
     responses.push(Number(val));
   }
+
+  if(firstUnanswered){
+    alert('모든 항목에 답해주세요.');
+    firstUnanswered.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
   computeScores(responses);
 });
-
-renderSurvey();
-</script>
-
-</body>
-</html>
