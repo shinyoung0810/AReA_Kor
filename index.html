@@ -8,7 +8,7 @@
 body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:0;background:#f6f7fb;color:#0f172a;padding:20px;}
 h1{font-size:20px;margin-bottom:20px;}
 form div{margin-bottom:12px;}
-label{font-weight:600;}
+label{font-weight:400;}
 button{background:#334155;color:white;border:0;padding:8px 10px;border-radius:8px;cursor:pointer;margin-top:10px;}
 #resultsArea{margin-top:20px;padding:10px;border:1px solid #eef2f7;border-radius:8px;background:#fbfcff;}
 .resultRow{margin-bottom:6px;}
@@ -20,15 +20,15 @@ button{background:#334155;color:white;border:0;padding:8px 10px;border-radius:8p
 <h1>AReA (미학적 민감성 테스트)</h1>
 
 <form id="surveyForm"></form>
-<button id="submitSurvey" type="button">제출</button>
+<button id="submitSurvey" type="button">제출 및 점수보기</button>
 
 <div id="resultsArea" style="display:none;">
   <div class="resultRow"><strong>각 항목 점수:</strong><span id="itemScores">—</span></div>
   <div class="resultRow"><strong>총합:</strong><span id="totalScore">—</span></div>
   <div class="resultRow"><strong>전체 평균:</strong><span id="meanScore">—</span></div>
-  <div class="resultRow"><strong>AA 평균:</strong><span id="aaScore">—</span></div>
-  <div class="resultRow"><strong>IAE 평균:</strong><span id="iaeScore">—</span></div>
-  <div class="resultRow"><strong>CB 평균:</strong><span id="cbScore">—</span></div>
+  <div class="resultRow"><strong>AA(미학적 가치판단)평균:</strong><span id="aaScore">—</span></div>
+  <div class="resultRow"><strong>IAE(강렬한 미학적 경험)평균:</strong><span id="iaeScore">—</span></div>
+  <div class="resultRow"><strong>CB(창조적 행위)평균:</strong><span id="cbScore">—</span></div>
 </div>
 
 <script>
@@ -61,9 +61,9 @@ function renderSurvey(){
     const label = document.createElement('label');
     label.textContent = (i+1)+'. '+it.text;
     label.style.display='block';
-    const row = document.createElement('div'); row.style.display='flex'; row.style.gap='6px'; row.style.marginTop='4px';
+    const row = document.createElement('div'); row.style.display='flex'; row.style.gap='10px'; row.style.marginTop='4px';
     for(let v=min; v<=max; v++){
-      const r = document.createElement('label'); r.style.display='inline-flex'; r.style.alignItems='center'; r.style.gap='6px';
+      const r = document.createElement('label'); r.style.display='inline-flex'; r.style.alignItems='center'; r.style.gap='10px';
       const inp = document.createElement('input'); inp.type='radio'; inp.name='q'+i; inp.value=v; inp.required=true;
       r.appendChild(inp); r.appendChild(document.createTextNode(v));
       row.appendChild(r);
