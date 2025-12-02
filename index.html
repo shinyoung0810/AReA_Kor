@@ -23,12 +23,11 @@ button{background:#334155;color:white;border:0;padding:8px 10px;border-radius:8p
 <button id="submitSurvey" type="button">제출 및 점수보기</button>
 
 <div id="resultsArea" style="display:none;">
-  <!-- <div class="resultRow"><strong>각 항목 점수:</strong><span id="itemScores">—</span></div> 제거 -->
-  <div class="resultRow"><strong>총합:</strong><span id="totalScore">—</span></div>
-  <div class="resultRow"><strong>전체 평균:</strong><span id="meanScore">—</span></div>
-  <div class="resultRow"><strong>AA(미학적 가치판단)평균:</strong><span id="aaScore">—</span></div>
-  <div class="resultRow"><strong>IAE(강렬한 미학적 경험)평균:</strong><span id="iaeScore">—</span></div>
-  <div class="resultRow"><strong>CB(창조적 행위)평균:</strong><span id="cbScore">—</span></div>
+  <div class="resultRow"><strong>총점:</strong><span id="totalScore">—</span></div>
+  <div class="resultRow"><strong>미학적 민감도 평균:</strong><span id="meanScore">—</span></div>
+  <div class="resultRow"><strong>미학적 가치판단(AA)영역:</strong><span id="aaScore">—</span></div>
+  <div class="resultRow"><strong>미학적 경험(IAE)영역:</strong><span id="iaeScore">—</span></div>
+  <div class="resultRow"><strong>창조적 행위(CB)영역:</strong><span id="cbScore">—</span></div>
 </div>
 
 <script>
@@ -99,21 +98,20 @@ function renderSurvey(){
 // 점수 해석
 function scoreLabel(value){
   const labels = {
-    1:'미학적 민감도 낮음',
-    2:'미학적 민감도 보통 이하',
-    3:'미학적 민감도 보통',
-    4:'미학적 민감도 높음',
-    5:'미학적 민감도 매우 높음'
+    1:'낮음',
+    2:'보통 이하',
+    3:'보통',
+    4:'높음',
+    5:'매우 높음'
   };
   return labels[Math.round(value)] || '—';
 }
 
-// 점수 계산
+  // 점수 계산
 function computeScores(resp){
   const min=1,max=5;
   const adjusted = resp.map((r,i)=>items[i].reverse ? (max+min)-r : r);
-  document.getElementById('itemScores').textContent = adjusted.map(v=>v + ' ('+scoreLabel(v)+')').join(', ');
-  
+
   const sum = adjusted.reduce((a,b)=>a+b,0);
   const mean = sum/adjusted.length;
   
